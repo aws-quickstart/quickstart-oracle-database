@@ -27,7 +27,6 @@
                         "NATInstanceType",
                         "BastionAMIOS",
                         "BastionInstanceType",
-                        "NumBastionHosts",
                         "OracleAMIOS",
                         "OracleInstanceType",
                         "PrimaryIPAddress",
@@ -75,8 +74,7 @@
                     },
                     "Parameters": [
                         "EnableBanner",
-                        "BastionBanner",
-	                    "NumBastionHosts"
+                        "BastionBanner"
                     ]
                 },
                 {
@@ -104,9 +102,6 @@
                 },
                 "BastionBanner": {
                     "default": "Bastion Banner"
-                },
-                "NumBastionHosts": {
-                    "default": "2"
                 },
                 "CharacterSet": {
                     "default": "Character Set"
@@ -289,12 +284,6 @@
             "Description": "Banner text to display upon login",
             "Type": "String"
         },
-        "NumBastionHosts": {
-            "Type": "String",
-            "AllowedValues": ["2"],
-            "Default": "2",
-            "Description": "Number of Bastion Hosts you would like to run."
-        },
         "CharacterSet": {
             "AllowedValues": [
                 "AL32UTF8",
@@ -414,24 +403,6 @@
             "Default": "true",
             "Description": "To include a banner to be displayed when connecting via SSH to the bastion, set this parameter to true",
             "Type": "String"
-        },
-        "EnableTCPForwarding": {
-            "Type": "String",
-            "Description": "Enable/Disable TCP Forwarding",
-            "Default": "false",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
-        },
-        "EnableX11Forwarding": {
-            "Type": "String",
-            "Description": "Enable/Disable X11 Forwarding",
-            "Default": "false",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
         },
         "InstallBucketName": {
             "AllowedPattern": "^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$",
@@ -779,15 +750,6 @@
                     },
                     "KeyPairName": {
                         "Ref": "KeyPairName"
-                    },
-                    "NumBastionHosts": {
-                        "Ref": "NumBastionHosts"
-                    },
-                    "EnableTCPForwarding": {
-                        "Ref": "EnableTCPForwarding"
-                    },
-                    "EnableX11Forwarding": {
-                        "Ref": "EnableX11Forwarding"
                     },
                     "PublicSubnet1ID": {
                         "Fn::GetAtt": [
