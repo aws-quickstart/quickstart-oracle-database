@@ -463,10 +463,10 @@
         },
         "OracleAMIOS": {
             "AllowedValues": [
-                "RedHatEnterpriseLinux72HVM",
-                "OracleLinux67HVM"
+                "RedHat-Enterprise-Linux-72-HVM",
+                "Oracle-Linux-67-HVM"
             ],
-            "Default": "RedHatEnterpriseLinux72HVM",
+            "Default": "RedHat-Enterprise-Linux-72-HVM",
             "Description": "Operating system and version for master/worker nodes.",
             "Type": "String"
         },
