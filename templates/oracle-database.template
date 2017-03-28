@@ -287,10 +287,10 @@
         },
         "OracleAMIOS": {
             "AllowedValues": [
-                "RedHatEnterpriseLinux72HVM",
-                "OracleLinux67HVM"
+                "RedHat-Enterprise-Linux-7.2-HVM",
+                "Oracle-Linux-6.7-HVM"
             ],
-            "Default": "RedHatEnterpriseLinux72HVM",
+            "Default": "RedHat-Enterprise-Linux-7.2-HVM",
             "Description": "Operating system and version for master/worker nodes.",
             "Type": "String"
         },
@@ -647,11 +647,11 @@
             }
         },
         "OracleAMINameMap": {
-            "RedHatEnterpriseLinux72HVM": {
+            "RedHat-Enterprise-Linux-7.2-HVM": {
                 "Code": "RHEL72HVM",
                 "repo": "#already come with repo"
             },
-            "OracleLinux67HVM": {
+            "Oracle-Linux-6.7-HVM": {
                 "Code": "OL67HVM",
                 "repo": "curl -O http://public-yum.oracle.com/public-yum-ol6.repo"
             }

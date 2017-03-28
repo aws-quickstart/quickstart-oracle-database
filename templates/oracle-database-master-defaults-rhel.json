@@ -69,7 +69,7 @@
     },
     {
         "ParameterKey": "OracleAMIOS",
-        "ParameterValue": "RedHatEnterpriseLinux72HVM"
+        "ParameterValue": "RedHat-Enterprise-Linux-7.2-HVM"
     },
     {
         "ParameterKey": "OracleInstanceType",
