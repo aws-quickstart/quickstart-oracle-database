@@ -287,10 +287,10 @@
         },
         "OracleAMIOS": {
             "AllowedValues": [
-                "RedHat-Enterprise-Linux-7.2-HVM",
+                "Red-Hat-Enterprise-Linux-7.2-HVM",
                 "Oracle-Linux-6.7-HVM"
             ],
-            "Default": "RedHat-Enterprise-Linux-7.2-HVM",
+            "Default": "Red-Hat-Enterprise-Linux-7.2-HVM",
             "Description": "Operating system and version for master/worker nodes.",
             "Type": "String"
         },
@@ -647,7 +647,7 @@
             }
         },
         "OracleAMINameMap": {
-            "RedHat-Enterprise-Linux-7.2-HVM": {
+            "Red-Hat-Enterprise-Linux-7.2-HVM": {
                 "Code": "RHEL72HVM",
                 "repo": "#already come with repo"
             },
