@@ -450,7 +450,7 @@ echo QS_BEGIN_oracleexec.sh
 if [[ ${HOST_TYPE} == 'PRIMARY' ]]; then
     sudo su -l oracle -c '/tmp/oracleexec.sh ${0} ${1} ${2}' -- ${ASM_PASS} ${DATABASE_PORT} ${PRIMARY_NAME} &> /tmp/oracleexec.log
 elif [[ ${HOST_TYPE} == 'STANDBY' ]]; then
-    sudo su -l oracle -c '/tmp/oracleexec.sh ${0} ${1} ${2} ${3} ${4}' -- ${DATABASE_PASS} ${ASM_PASS} ${DATABASE_PORT} ${PRIMARY_NAME} ${STANDBY_NAME} &> /tmp/oracleexec.log
+    sudo su -l oracle -c '/tmp/oracleexec-sb.sh ${0} ${1} ${2} ${3} ${4}' -- ${DATABASE_PASS} ${ASM_PASS} ${DATABASE_PORT} ${PRIMARY_NAME} ${STANDBY_NAME} &> /tmp/oracleexec.log
 fi
 echo QS_END_oracleexec.sh
 # Check ASM instance Status
