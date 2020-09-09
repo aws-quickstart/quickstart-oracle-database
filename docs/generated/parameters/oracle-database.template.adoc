@@ -1,0 +1,62 @@
+
+.Network Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|VPC ID
+(`VPCID`)|`**__Requires input__**`|ID of the VPC (e.g., vpc-0343606e)|Private Subnet ID 1
+(`PrivateSubnet1ID`)|`**__Requires input__**`|ID of the private subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd)|Private Subnet ID 2
+(`PrivateSubnet2ID`)|`**__Requires input__**`|ID of the private subnet 2 in Availability Zone 2 (e.g., subnet-b58c3d67)|Bastion Security Group ID
+(`BastionSecurityGroupID`)|`**__Requires input__**`|ID of the Bastion Security Group (e.g., sg-7f16e910)
+|===
+.Amazon EC2 Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Key Pair Name
+(`KeyPairName`)|`**__Requires input__**`|Name of an existing EC2 KeyPair to enable SSH access to the instance|Database Operating System
+(`OracleAMIOS`)|`Red-Hat-Enterprise-Linux-7.2-HVM`|Operating system and version for database nodes.|Database Instance Type
+(`OracleInstanceType`)|`r3.2xlarge`|Choose your Oracle Database instance type.|Primary Database Private IP
+(`PrimaryIPAddress`)|`10.0.0.5`|This must be a valid IP address for private subnet 1.|Standby Database Private IP
+(`StandbyIPAddress`)|`10.0.32.5`|This must be a valid IP address for private subnet 2.|Enable CloudWatch Logs
+(`EnableCWL`)|`false`|enable pushing instance logs to CloudWatch Logs
+|===
+.Oracle Database Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Oracle Version
+(`OracleVersion`)|`12.2.0.1`|Version of Oracle Database Software.|Domain Name
+(`DomainName`)|`dataguard-env`|Name of Domain to reach your Database Endpoint after setup.|Database Port Number
+(`DatabasePort`)|`1525`|Oracle Database listener port number.|Primary Database Name
+(`DatabaseName`)|`orcl`|Enter your Database Name, Min 3, Maximum of 8 characters (limited by DB_NAME). Primary instance will have the same name of this.|Data Guard Configuration
+(`DataGuardConfig`)|`Data Guard`|Configuration: Single - One instance only,  Data Guard - Two instances (Primary + Standby)|Character Set
+(`CharacterSet`)|`AL32UTF8`|Character set for Oracle Database.|Standby Database Name
+(`StandbyName`)|`orclsb`|Enter your Standby instance name, Min 3, Maximum of 12 characters.|Database Password
+(`DatabasePass`)|`**__Requires input__**`|Enter your Database Password, Min 3, maximum of 30 characters. This password is used for the SYS, SYSTEM, and DBSNMP users of Oracle Database.|ASM Password
+(`AsmPass`)|`**__Requires input__**`|Enter your ASM Password, Min 3, maximum of 30 characters. This password is used for the SYSASM, ASM Monitor, and ASM EM admin users of Oracle ASM.|Data Diskgroup GiB/Disk
+(`EBSData`)|`20`|Enter the number of Gigabytes for Each ASM Disk (EBS) for DATA Diskgroup total of 6 (six) volumes, maximum of 16000 GiB each.|Data Diskgroup Volume Type
+(`DataVolumeType`)|`gp2`|Disk type for EBS Data Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).|Data - IOPS per EBS Volume
+(`DataIOPS`)|`600`|IOPS per EBS Volume, only for io1 types. DATA diskgroup total IOPS will be this value x 6. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.|Recovery (Reco) Diskgroup GiB/Disk
+(`EBSReco`)|`6`|Enter the number of Gigabytes for Each ASM Disk (EBS) for RECO Diskgroup total of 3 (three) volumes, maximum of 16000 GiB each.|Reco Diskgroup Volume Type
+(`RecoVolumeType`)|`gp2`|Disk type for EBS Reco Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).|Reco - IOPS per EBS Volume
+(`RecoIOPS`)|`200`|IOPS per EBS Volume, only for io1 types. RECO diskgroup total IOPS will be this value x 3. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.|Binaries Bucket Name
+(`InstallBucketName`)|`**__Requires input__**`|Name of your S3 bucket with your Oracle Binaries (e.g., bucket-name)|Binaries Bucket Key Prefix
+(`InstallBucketPrefix`)|`oracle/database/12`|Name of your S3 prefix with your Oracle Binaries (e.g., key/prefix)
+|===
+.Oracle Secure Backup Cloud Module (Optional)
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Install Oracle Secure Backup
+(`OSBInstall`)|`false`|Install (true) or don't install (false) optional Oracle Secure Backup.|OTN Account Email/Login
+(`OSBOTN`)|`**__Requires input__**`|Your OTN (Oracle Technology Network) account login.|OTN Account Password
+(`OSBPass`)|`**__Requires input__**`|Password of your OTN (Oracle Technology Network) account.|S3 Bucket for Backups
+(`OSBBucketName`)|`**__Requires input__**`|Name of your S3 bucket to store your Oracle backups.|AWS Access Key ID
+(`OSBKey`)|`**__Requires input__**`|The AWS Access Key to access your backup bucket, something like AKIAIV3KL4XXIT7DXXYY.|AWS Secret Access Key
+(`OSBSecret`)|`**__Requires input__**`|The AWS Secret Key to access your backup bucket, something like c/ZeLyzixxx3HfxPVLX9IOKMXEdSbqks3Acz7QHj.
+|===
+.AWS Quick Start Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Quick Start S3 Bucket Name
+(`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 bucket region
+(`QSS3BucketRegion`)|`us-east-1`|The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.|Quick Start S3 Key Prefix
+(`QSS3KeyPrefix`)|`quickstart-oracle-database/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).
+|===

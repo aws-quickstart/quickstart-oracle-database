@@ -1,0 +1,3221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Oracle Database on the AWS Cloud</title>
+<style>
+
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#34478c;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{
+  border-bottom:1px solid #e7e7e9;
+  padding-bottom:.5em;
+  width: 230px;
+}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{
+  font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  text-decoration:none;
+  color:#ccc;
+  display: block;
+  font-size:1rem;
+  line-height: 2rem;
+}
+#toc a:hover{color:#e6e6e6}
+#toc a:active{
+  text-decoration:none;
+  color:#777;
+}
+#toctitle{
+  padding-top:0;
+  overflow:hidden;
+  background:#283e5b;
+  border-bottom: 4px solid #435c7c;
+  width:320px;
+  height:154px;
+  top:0;
+  left:0;
+  color: #283e5b;
+}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#1c222a;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;/*! padding:1.25em 1em; */height:100%;overflow:auto;padding-right: 0px;}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{
+  font-size:1.375em;
+  background-repeat: no-repeat;
+  background-size: 160.8px 136.483px;
+  background-position: center;
+  }
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:#1c222a;padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44;/*! background: #e6e6e6; */}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+
+/* -------------------------   QS CSS entries ---------------------------- */
+@font-face {
+  font-family: 'Amazon Ember Light';
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-bc9ed0fce860a46f3cb061034280c23400e6e8b6._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-96be47a559388a2b219577124589435c09a361fe._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-b561f11b5c8be92ac17f6b713dd9d4b6e2f00c8d._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-96be47a559388a2b219577124589435c09a361fe._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-b561f11b5c8be92ac17f6b713dd9d4b6e2f00c8d._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-0acf3bc8b64d470d8888d84741a19533394654c6._V299195749_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rgit-af980fe9c64fc17ece72cba4e3e7fdf54babeea6._V299195748_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rgit-4fae4842b3446774d86579b9b024858a848644e8._V299195748_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium'),
+    url('https://m.media-amazon.com/images/G/01/amazonservices/fonts/amazonember_md_base-webfont._V525237381_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/amazonservices/fonts/amazonember_md_base-webfont._V525237386_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-Italic'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_mdit-webfont._V522331917_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_mdit-webfont._V522331917_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy'),
+    url('https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446115_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_heit-webfont._V522331917_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_heit-webfont._V522331917_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thin-webfont._V282715032_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thin-webfont._V282715033_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-Italic'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thinit-webfont._V282715033_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thinit-webfont._V282715032_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+
+.tip {
+  border-top: 30px solid rgba(92, 184, 92, 0.8);
+  background: #E6F9E6;
+}
+
+.note {
+  border-top: 30px solid #6AB0DE;
+  background: #E7F2FA;
+}
+
+.warning {
+  border-top: 30px solid #F0B37E;
+  background: #FFF2DB;
+}
+
+.caution {
+  border-top: 30px solid rgba(217, 83, 79, 0.8);
+  background: #FAE2E2;
+}
+
+.important {
+  border-top: 30px solid rgba(217, 83, 79, 0.8);
+  background: #FAE2E2;
+}
+
+#content {
+  max-width: 100rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+body {
+  font-family: "Amazon Ember Regular", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+}
+
+/* added */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin        : 0.85rem 0 1.7rem 0;
+  text-rendering: optimizeLegibility;
+  color: #ec7211;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+/* QS Table of Contents */
+
+#toc {
+  overflow-x: hidden !important;
+}
+
+#toc>ul li {
+  padding    : 0.3rem 0.6rem;
+  margin-top : 0;
+  line-height: 1;
+}
+
+#toc>ul li a {
+  line-height: 1.6;
+}
+
+#toc a {
+  /* TOC details */
+  font-family  : "Amazon Ember Light", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  margin-left  : -1rem;
+  margin-right : -1rem;
+  padding-left : 1rem;
+  padding-right: 1rem;
+  background   : transparent;
+  box-sizing   : border-box;
+  cursor       : pointer;
+  font-weight  : 300 !important;
+}
+
+#toc.toc2 #toctitle{
+  background-image: url('images/AWS-Logo.svg');
+}
+
+/* QS Tables */
+
+table.tableblock .title,
+.imageblock .title {
+  font-family  : "Amazon Ember Light", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-size: 1.1rem;
+  color: #34478c;
+}
+table p {
+  margin: 0rem;
+}
+
+/* Add border around hyperlink images */
+a img {
+    border: 1px solid #A4A4A4;
+}
+
+#preview_mode {
+	border-color:#e0e0dc;
+	-webkit-box-shadow:0 1px 4px #e0e0dc;
+	box-shadow:0 1px 4px #e0e0dc;
+  background:#ffffb3;
+  padding-bottom: 2rem;
+}
+#preview_mode .tableblock {
+  background:#ffffb3;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_oracle_database_on_aws">Oracle Database on AWS</a>
+<ul class="sectlevel2">
+<li><a href="#_high_availability_on_aws">High Availability on AWS</a></li>
+<li><a href="#_ha_scenarios_with_oracle_data_guard_on_aws">HA Scenarios with Oracle Data Guard on AWS</a></li>
+<li><a href="#_oracle_network_environment_in_aws">Oracle Network Environment in AWS</a></li>
+</ul>
+</li>
+<li><a href="#_cost">Cost</a></li>
+<li><a href="#_software_licenses">Software licenses</a></li>
+<li><a href="#_architecture">Architecture</a></li>
+<li><a href="#_planning_the_deployment">Planning the deployment</a>
+<ul class="sectlevel2">
+<li><a href="#_specialized_knowledge">Specialized knowledge</a></li>
+<li><a href="#_aws_account">AWS account</a></li>
+<li><a href="#_technical_requirements">Technical requirements</a></li>
+<li><a href="#_oracle_database_12c_editions">Oracle Database 12c Editions</a></li>
+<li><a href="#_operating_system_for_deployment">Operating System for Deployment</a></li>
+<li><a href="#_storage_management">Storage Management</a></li>
+<li><a href="#_oracle_memory_configuration">Oracle Memory Configuration</a></li>
+<li><a href="#_backup_options">Backup Options</a></li>
+</ul>
+</li>
+<li><a href="#_deployment_steps">Deployment steps</a>
+<ul class="sectlevel2">
+<li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
+<li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
+<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
+<li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
+</ul>
+</li>
+<li><a href="#_post_deployment_steps">Post deployment steps</a>
+<ul class="sectlevel2">
+<li><a href="#_files_and_directories">Files and Directories</a></li>
+<li><a href="#_access_your_oracle_database_instance">Access Your Oracle Database Instance</a></li>
+<li><a href="#_check_your_environment">Check Your Environment</a></li>
+</ul>
+</li>
+<li><a href="#_best_practices_for_using_oracle_database_on_aws">Best practices for using Oracle Database on AWS</a>
+<ul class="sectlevel2">
+<li><a href="#_working_with_oracle_data_guard">Working with Oracle Data Guard</a></li>
+</ul>
+</li>
+<li><a href="#_security">Security</a>
+<ul class="sectlevel2">
+<li><a href="#_network_security">Network Security</a></li>
+<li><a href="#_os_security">OS Security</a></li>
+<li><a href="#_security_groups">Security Groups</a></li>
+</ul>
+</li>
+<li><a href="#_other_useful_information">Other useful information</a>
+<ul class="sectlevel2">
+<li><a href="#_migrating_your_data_to_aws">Migrating Your Data to AWS</a></li>
+<li><a href="#_backing_up_your_data">Backing Up Your Data</a></li>
+<li><a href="#_additional_resources">Additional Resources</a></li>
+</ul>
+</li>
+<li><a href="#_appendix_a">Appendix A</a>
+<ul class="sectlevel2">
+<li><a href="#_data_replication_between_aws_regions">Data Replication Between AWS Regions</a></li>
+</ul>
+</li>
+<li><a href="#_appendix_b">Appendix B</a>
+<ul class="sectlevel2">
+<li><a href="#_adding_disks_to_asm_disk_groups">Adding Disks to ASM Disk Groups</a></li>
+</ul>
+</li>
+<li><a href="#_faq">FAQ</a></li>
+<li><a href="#_send_us_feedback">Send us feedback</a></li>
+<li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
+<li><a href="#_github_repository">GitHub repository</a>
+<ul class="sectlevel3">
+<li><a href="#_notices">Notices</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<h2 id="_oracle_database_on_the_aws_cloud" class="discrete text-center">Oracle Database on the AWS Cloud</h2>
+<h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-oracle-database/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>September, 2020</strong><br>
+<em></em><br>
+<em>Ravi Madabhushanam and Tony Bulding, Amazon Web Services</em></p>
+</div>
+<div class="admonitionblock tip text-left">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit our <a href="https://github.com/aws-quickstart/quickstart-oracle-database" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
+report bugs, or submit feature ideas for this Quick Start.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph text-left">
+<p>This Quick Start was created by AWS solutions architects in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This Quick Start reference deployment guide provides step-by-step instructions for deploying Oracle Database on the AWS Cloud.</p>
+</div>
+<div class="paragraph">
+<p>AWS provides a secure infrastructure to run your Oracle Database with an enterprise class architecture, high availability, and support for small, medium, and large databases. If you have an Oracle Database that is larger than 64 TiB, requires IOPS more than 80,000 or a database that relies on features that are not currently supported by Amazon Relational Database Service (Amazon RDS), which is the AWS database platform, you can install your own Oracle Database in the AWS virtual computing environment and manage it from your data center. <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Oracle.html">More information on supported and unsupported features on Amazon RDS for Oracle is available in Amazon Relation Database services User Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>This guide is for database administrators, enterprise architects, system administrators, and developers who would like to run their Oracle Database in a highly available Amazon Elastic Compute Cloud (Amazon EC2) environment, using Oracle Data Guard and Oracle Automatic Storage Management (ASM).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Amazon may share who uses AWS
+Quick Starts with the AWS Partner Network (APN) Partner that
+collaborated with AWS on the content of the Quick Start.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_oracle_database_on_aws">Oracle Database on AWS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Companies around the world have relied on Oracle Database for their data for many years. The business requirements that make Oracle Database a popular choice include the need for a low recovery time objective (RTO) and recovery point objective (RPO) in case of a failure or disaster, to guarantee minimum business impact and to ensure customer confidence.</p>
+</div>
+<div class="paragraph">
+<p>Amazon Relational Database Service (Amazon RDS) for Oracle Database is the easiest way to set up, operate, and scale a highly available Oracle Database in the cloud. You can deploy multiple editions of Oracle Database, including Enterprise Edition, Standard Edition, Standard Edition 1, and Standard Edition 2, with the Bring Your Own License (BYOL) model. Amazon RDS backs up your database automatically and also applies patches within the same patchset release.</p>
+</div>
+<div class="paragraph">
+<p>Although Amazon RDS supports most Oracle Database use cases, it restricts access to some system procedures and features that require advanced privileges. In some cases, you might want to install Oracle Database without restricting any features, privileges, storage sizes, and IOPS. For example, you might want to use over 64 TiB of storage and over 80,000 IOPS. For these higher workloads, we recommend that you install Oracle Database in an Amazon Elastic Compute Cloud (Amazon EC2) virtual computing environment.</p>
+</div>
+<div class="paragraph">
+<p>This Quick Start provides a reliable and automated way to install and configure your Oracle Database Enterprise Edition on Amazon EC2 with high availability. The Quick Start templates install the Oracle ASM storage management layer with the Oracle Grid Infrastructure server, and Oracle Data Guard for database setup and replication using physical standby databases.</p>
+</div>
+<div class="paragraph">
+<p>Oracle ASM is Oracle’s storage management solution that provides features such as disk striping, two-way and three-way mirroring, dynamic disk reconfiguration, and file management. Oracle Grid Infrastructure provides server support for Oracle Database and Oracle ASM. Oracle Data Guard provides a GUI and command-line interface for managing your primary and secondary databases. For more information about these components, see the <a href="http://docs.oracle.com/">Oracle documentation</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_high_availability_on_aws">High Availability on AWS</h3>
+<div class="paragraph">
+<p>The AWS Cloud infrastructure is global, and is built around Regions and Availability Zones. A Region is a separate geographic area where you can place AWS instances and data. For a current map of AWS Regions, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/">AWS Global Infrastructure</a> on the AWS website. When you launch this Quick Start, you can choose the AWS Region where you would like to deploy your Oracle Database.</p>
+</div>
+<div class="paragraph">
+<p>Each Region includes multiple Availability Zones, which are isolated locations with one or more discrete data centers—each with redundant power, networking and connectivity, housed in separate facilities. When you’re running databases on AWS, you can benefit significantly from Availability Zones, because they are connected to one another with fast, private, fiber-optic networking, providing automatic failover without interruption.</p>
+</div>
+<div class="paragraph">
+<p>Oracle Database high availability (HA) on AWS relies on AWS Availability Zones. The primary database and the standby database are placed in different Availability Zones, so if your primary database fails, your standby database can take over.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ha_scenarios_with_oracle_data_guard_on_aws">HA Scenarios with Oracle Data Guard on AWS</h3>
+<div class="paragraph">
+<p>Oracle Data Guard is a feature of Oracle Database Enterprise Edition that provides a set of tools to manage one or more Oracle standby databases for high availability and disaster recovery. To create an Oracle standby database, you replicate the Oracle primary database to a secondary machine by applying its online or archived redo logs.
+When the standby database is set up, any changes to the primary database are replicated to the standby database, ensuring that the contents of the two databases are in sync.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes the replication methods associated with Oracle Data Guard protection modes.</p>
+</div>
+<table class="tableblock frame-topbot grid-rows stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Protection mode</th>
+<th class="tableblock halign-left valign-top">Replication</th>
+<th class="tableblock halign-left valign-top">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maximum performance</strong> (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asynchronous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary database performance is not affected by any delays writing redo data to the standby database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maximum availability</strong> (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Synchronous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commit occurs when all redo data needed to recover transactions has been written to the online redo log and to at least one synchronized standby database. If Data Guard is not able to write to the standby database, behavior will be similar to the maximum performance protection mode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maximum protection</strong> (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Synchronous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changes must be written to both the online redo log and to the standby database for every transaction. If Data Guard is unable to write the redo stream to at least one standby, it will shut down the primary instance.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can set up an Oracle primary and standby relationship between two EC2 instances in different Availability Zones in the same AWS Region for synchronous or asynchronous replication, because they are connected with high-speed links. Alternatively, you can set up asynchronous replication between primary and standby databases in different AWS Regions. This Quick Start automates the first option: replication between different Availability Zones in the same Region, as discussed in detail in the <a href="#_architecture">Architecture</a> section. If you’re interested in the replication between Regions, you can create an Amazon EC2 AMI from your standby database instance and copy it to another Region. For more information about this alternate scenario, see <a href="#_appendix_a">Appendix A</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_oracle_network_environment_in_aws">Oracle Network Environment in AWS</h3>
+<div class="paragraph">
+<p>To ensure a high level of security, AWS provides the Amazon Virtual Private Cloud (Amazon VPC) service, which lets you provision logically isolated sections of the AWS Cloud where you can launch AWS resources in a virtual network that you define. When you create a VPC, you specify its size in the form of a Classless Inter-Domain Routing (CIDR) block. You can define a VPC as large as a /16 CIDR block or as small as a /28 CIDR block, depending on the number of subnets and IP addresses you would like to use. For more information about VPCs and subnets, see the <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html">AWS documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>We recommend that you create databases in private subnets, and use NAT gateways for internet access. This will ensure that your databases are not exposed to the internet, but can be updated via download packages. Database subnets should be accessible from your VPN (or AWS Direct Connect connection, if you have one), and from your application subnets. This Quick Start automatically sets up a VPC based on AWS best practices. It also sets up public and private subnets, NAT gateways, and bastion hosts in an Auto Scaling group to access your database instances.</p>
+</div>
+<div id="network_planning" class="imageblock">
+<div class="content">
+<a class="image" href="images/network_planning.png"><img src="images/network_planning.png" alt="Architecture" width="648" height="439"></a>
+</div>
+<div class="title">Figure 1. Network Planning for <em>Oracle Database</em> on AWS</div>
+</div>
+<div class="paragraph">
+<p>If you want to establish a secure connection between your on-premises data center and your VPC, you can use a VPN connection or a dedicated network connection (AWS Direct Connect).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cost">Cost</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You are responsible for the cost of the AWS services used while running
+this Quick Start. There is no additional cost for
+using the Quick Start.</p>
+</div>
+<div class="paragraph">
+<p>The AWS CloudFormation template for this Quick Start includes
+configuration parameters that you can customize. Some of the settings,
+such as the instance type, affect the cost of deployment. For cost estimates,
+see the pricing pages for each AWS service you use. Prices are subject to change.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_software_licenses">Software licenses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This deployment uses a Bring Your Own License (BYOL) model for Oracle Database Enterprise Edition. You must already own licenses for Oracle Database Enterprise Edition, and you must have access to the <a href="http://www.oracle.com/technetwork/index.html">Oracle Technology Network</a> to download the software.</p>
+</div>
+<div class="paragraph">
+<p>This Quick Start launches the Amazon Machine Image (AMI) for the Red Hat Enterprise Linux (RHEL) or Oracle Linux operating system.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Deploying this Quick Start for a new virtual private cloud (VPC) with
+<strong>default parameters</strong> builds the following <em>Oracle Database</em> environment in the
+AWS Cloud.</p>
+</div>
+<div id="architecture1" class="imageblock">
+<div class="content">
+<a class="image" href="images/architecture_diagram.png"><img src="images/architecture_diagram.png" alt="Architecture" width="648" height="439"></a>
+</div>
+<div class="title">Figure 2. Quick Start architecture for <em>Oracle Database</em> on AWS</div>
+</div>
+<div class="paragraph">
+<p>As shown in <a href="#architecture1">Figure 2</a>, the Quick Start deploys the Oracle primary database (using the preconfigured, general-purpose starter database from Oracle) on an Amazon EC2 instance in the first Availability Zone. It then sets up a second EC2 instance in a second Availability Zone, copies the primary database to the second instance by using the DUPLICATE command, and configures Oracle Data Guard. (The template that deploys the Quick Start into an existing VPC skips the tasks marked by asterisks.)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A highly available architecture that spans two Availability Zones.*</p>
+</li>
+<li>
+<p>A VPC configured with public and private subnets according to AWS best practices, to provide you with your own virtual network on AWS.*</p>
+</li>
+<li>
+<p>An internet gateway to allow access to the internet. This gateway is used by the bastion hosts to send and receive traffic.*</p>
+</li>
+<li>
+<p>Managed NAT gateways to allow outbound internet access for resources in the private subnets. Database instances use this layer to securely download Linux packages required for Oracle installation.*</p>
+</li>
+<li>
+<p>A Linux bastion host in each public subnet with an Elastic IP address to allow inbound Secure Shell (SSH) access to EC2 instances in public and private subnets.*</p>
+</li>
+<li>
+<p>Three security groups for fine-grained inbound access control from the bastion host, between the database instances, and for application access to the database.</p>
+</li>
+<li>
+<p>AWS Command Line Interface (AWS CLI) and an instance role for installation bucket access.</p>
+</li>
+<li>
+<p>The Amazon Route 53 Domain Name System (DNS) web service to provide independency from using IP addresses or server host names. This is useful in failover or switchover scenarios.</p>
+</li>
+<li>
+<p>A set of solid state drive (SSD) disks—six for ASM data (DATA) disk groups, and three for recovery (RECO) disk groups—which can be set to Provisioned IOPS (io1) volumes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Quick Start can also integrate with an existing Amazon S3 bucket, which helps you store backups and archive logs in a very cost-effective way. You can also use Oracle Secure Backup library commands to interact directly with Oracle Recovery Manager (RMAN).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_planning_the_deployment">Planning the deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_specialized_knowledge">Specialized knowledge</h3>
+<div class="paragraph">
+<p>This deployment guide requires a moderate level of familiarity with
+AWS services. If you’re new to AWS, visit the
+<a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started Resource Center</a>
+and the <a href="https://aws.amazon.com/training/">AWS Training and Certification
+website</a>. These sites provide materials for learning how to design,
+deploy, and operate your infrastructure and applications on the AWS
+Cloud.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aws_account">AWS account</h3>
+<div class="paragraph">
+<p>If you don’t already have an AWS account, create one at <a href="https://aws.amazon.com/" target="_blank" rel="noopener">https://aws.amazon.com</a> by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.</p>
+</div>
+<div class="paragraph">
+<p>Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technical_requirements">Technical requirements</h3>
+<div class="paragraph">
+<p>Before you launch the Quick Start, your account must be configured as specified in the following table. Otherwise, deployment might fail.</p>
+</div>
+<div class="sect3">
+<h4 id="_resource_limits">Resource limits</h4>
+<div class="paragraph">
+<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources, and this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see the <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">This deployment uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPCs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic IP addresses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) security groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auto Scaling groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Load Balancers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network Load Balancers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t2.micro instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">r3.2xlarge instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_supported_regions">Supported Regions</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Opt-in Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us-east-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">US East (Ohio)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us-east-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">US East (N. Virginia)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us-west-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">US West (N. California)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">us-west-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">US West (Oregon)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">af-south-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Africa (Cape Town)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-east-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Hong Kong)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-south-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Mumbai)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-northeast-3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Osaka-Local)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-northeast-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Seoul)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-southeast-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Singapore)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-southeast-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Sydney)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ap-northeast-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asia Pacific (Tokyo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ca-central-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Canada (Central)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-central-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (Frankfurt)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-west-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (Ireland)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-west-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (London)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-south-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (Milan)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-west-3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (Paris)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eu-north-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Europe (Stockholm)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">me-south-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Middle East (Bahrain)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sa-east-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">South America (São Paulo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not required</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Certain Regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ec2_key_pairs">EC2 key pairs</h4>
+<div class="paragraph">
+<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">instructions in the AWS documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For testing or proof-of-concept purposes, we recommend creating a new key pair instead of using one that’s already being used by a production instance.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_iam_permissions">IAM permissions</h4>
+<div class="paragraph">
+<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources and actions the templates deploy.</p>
+</div>
+<div class="paragraph">
+<p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prepare_for_the_deployment">Prepare for the deployment</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the Oracle Database Software</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Go to the Oracle Database Software Downloads webpage to download the binaries for <a href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/oracle12c-linux-12201-3608234.html">Oracle Database 12c Release 2 (12.2.0.1)</a> or <a href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/database12c-linux-download-2240591.html">Oracle Database 12c Release 1 (12.1.0.2)</a>.</p>
+</li>
+<li>
+<p>Go to the <a href="http://www.oracle.com/technetwork/server-storage/linux/asmlib/rhel7-2773795.html">Oracle Linux Downloads webpage</a> and download the Oracle Automatic Storage Management (ASM) Libraries.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-topbot grid-rows stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Product or component</th>
+<th class="tableblock halign-left valign-top">Files to download and save in your S3 bucket</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Oracle Grid Infrastructure Release 1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linuxamd64_12102_grid_1of2.zip
+linuxamd64_12102_grid_2of2.zip</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Oracle Database Enterprise Edition Release 1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linuxamd64_12102_database_1of2.zip
+linuxamd64_12102_database_2of2.zip</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Oracle Grid Infrastructure Release 2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linuxx64_12201_grid_home.zip</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Oracle Database Enterprise Edition Release 2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linuxx64_12201_database.zip</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Oracle Automatic Storage Management (ASM) Libraries</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.oracle.com/technetwork/server-storage/linux/asmlib/rhel6-1940776.html">oracleasmlib-2.0.4-1.el6.x86_64.rpm</a><br>
+<a href="http://www.oracle.com/technetwork/server-storage/linux/asmlib/rhel6-1940776.html">oracleasm-support-2.1.8-1.el6.x86_64.rpm</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Set up your S3 bucket by following the <a href="https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.htm">instructions in the AWS documentation</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You must place the S3 bucket in the same account (and preferably in the same Region) where you&#8217;re planning to launch the Quick Start.</p>
+</li>
+<li>
+<p>Bucket name and key prefixes may only consist of letters, numbers, and hyphens (-).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Place the unextracted downloads in the S3 bucket, as shown in <a href="#staging_downloads">Figure 3</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For better organization of objects in this bucket, you should place the binaries in a subfolder (subkey) of the bucket, e.g., bucket-name/path/to/binaries.</p>
+</li>
+<li>
+<p>When you launch the Quick Start, you must specify this complete bucket name and key prefix in the Binaries Bucket Name and Binaries Bucket Key Prefix parameter. For example, you may place the binaries for Oracle 12.1 in S3://my-downaloads-bucket/oracle/121/ and Oracle 12.2 can be placed in S3://my-downloads-bucklet/oracle/122/.</p>
+</li>
+<li>
+<p>Crosscheck that the following Oracle downloads are in the bucket before proceeding.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>linuxamd64_12102_database_1of2.zip<br>
+linuxamd64_12102_database_2of2.zip<br>
+linuxamd64_12102_grid_1of2.zip<br>
+linuxamd64_12102_grid_2of2.zip for Oracle 12.1.0.2 Version</p>
+</li>
+<li>
+<p>linuxx64_12201_database.zip<br>
+linuxx64_12201_grid_home.zip for Oracle 12.2.0.1 Version<br>
+oracleasm-support-2.1.8-1.el6.x86_64.rpm<br>
+oracleasmlib-2.0.4-1.el6.x86_64.rpm for Oracle Linux 6.7 or RHEL 7.2<br>
+oracleasmlib-2.0.12-1.el7.x86_64.rpm for Oracle Linux 7.3.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="staging_downloads" class="imageblock">
+<div class="content">
+<a class="image" href="images/staging_downloads.png"><img src="images/staging_downloads.png" alt="staging_downloads" width="648" height="439"></a>
+</div>
+<div class="title">Figure 3. Staging downloads in the S3 bucket</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deployment_options">Deployment options</h4>
+<div class="paragraph">
+<p>This Quick Start provides two deployment options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Deploy Oracle Database into a new VPC (end-to-end deployment)</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys Oracle Database into this new VPC.</p>
+</li>
+<li>
+<p><strong>Deploy Oracle Database into an existing VPC</strong>. This option provisions Oracle Database in your existing AWS infrastructure.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Oracle Database settings, as discussed later in this guide.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_oracle_database_12c_editions">Oracle Database 12c Editions</h3>
+<div class="paragraph">
+<p>This Quick Start requires Oracle Database 12c Enterprise Edition.</p>
+</div>
+<div class="paragraph">
+<p>In Oracle Database 12c Enterprise Edition, you can choose to use the standard Linux file system (e.g., ext4) or Automatic Storage Management (ASM) to store your data files, redo logs, and archived logs. This Quick Start deploys an ASM infrastructure, which provides better performance and file management than the standard Linux file system. Oracle ASM supports automatic file management and data striping across multiple EBS volumes, providing high performance and an easy way to scale your storage area.</p>
+</div>
+<div id="installation_summary" class="imageblock">
+<div class="content">
+<a class="image" href="images/installation_summary.png"><img src="images/installation_summary.png" alt="installation_summary" width="648" height="439"></a>
+</div>
+<div class="title">Figure 4. Installation Summary for <em>Oracle Database</em> on AWS</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_operating_system_for_deployment">Operating System for Deployment</h3>
+<div class="paragraph">
+<p>You can use Linux or Microsoft Windows for your Oracle Database installation on AWS. This Quick Start deployment uses Linux. The Quick Start supports Red Hat Enterprise Linux (RHEL) version 7.2 and Oracle Linux 7.3.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_management">Storage Management</h3>
+<div class="paragraph">
+<p>This Quick Start uses Oracle ASM as the storage layer of the virtual machine, because ASM helps you add and reduce capacity easily. ASM’s striping feature, which spreads data across multiple disks in 1-MiB blocks, also supports distributed I/O across all the EBS volumes.</p>
+</div>
+<div id="asm_disk_groups" class="imageblock">
+<div class="content">
+<a class="image" href="images/asm_disk_groups.png"><img src="images/asm_disk_groups.png" alt="asm_disk_groups" width="648" height="439"></a>
+</div>
+<div class="title">Figure 5. ASM Disk Groups</div>
+</div>
+<div class="paragraph">
+<p>This Quick Start gives you a choice of General Purpose SSD (gp2) volumes or Provisioned IOPS SSD (io1) volumes.</p>
+</div>
+<div class="paragraph">
+<p>Setting an ASM disk group to several gp2 volumes provides a burst capability per EBS volume of up to 3,000 IOPS, which means 18,000 IOPS for a six-volume DATA disk group and 9,000 IOPS for a three-volume RECO disk group, even with disks as small as 1 GiB.</p>
+</div>
+<div class="paragraph">
+<p>For sustained IOPS, each 1-GiB gp2 volume delivers 3 IOPS until the maximum of 16,000 IOPS is reached. Also certain large EC2 instances can support maximum of 80,000 IOPS. Refer to Amazon EBS–optimized instances for additional information on maximum IOPS supported by each instance type. So with our six-volume data disks, the maximum I/O throughput is achieved with 4,444 GiB volumes (x 6 = 26,667 GiB disk group) or higher volumes.</p>
+</div>
+<div class="paragraph">
+<p>For sustained IOPS that is higher than 3 IOPS/GiB, you can use io1 volumes. This option typically addresses the needs of critical business applications that require sustained IOPS performance or more than 16,000 IOPS or 250 MiB/s of throughput per volume, and can then achieve 500 MiB/s per volume. Provisioned IOPS instances can provide maximum throughput of 1,000 MiB/s when provisioned with more than 32,000 IOPS on Nitro system based instance types. For more information refer to Amazon EBS volume types.</p>
+</div>
+<div class="paragraph">
+<p>If you choose Provisioned IOPS (io1) volumes, you will need to provide the amount of IOPS desired for both DATA and RECO volumes.</p>
+</div>
+<div class="paragraph">
+<p>ASM is part of Oracle Grid Infrastructure, which is provided as a standalone download, so this Quick Start installs Oracle Grid Infrastructure followed by Oracle Database 12c.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_oracle_memory_configuration">Oracle Memory Configuration</h3>
+<div class="paragraph">
+<p>The Quick Start maps each instance type to an Oracle SGA size in megabytes (60% of available RAM in the instance) and SHMMAX kernel, using 75% of the memory available to allow further SGA growth. For more information, see the <a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=1529864.1">Oracle support document 1529864.1</a> (access to the document requires an Oracle account). The Quick Start provides default settings that you can revise; see the Mappings section of the AWS CloudFormation template.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  "Mappings": {
+      "AWSInstanceType2Value": {
+          "t2.medium": {
+              "sga": "2458",
+              "shmall": "838861",
+              "shmmax": "3221225472"
+          },
+          ...
+          "t2.large": {
+              "sga": "4915",
+              "shmall": "1677722",
+              "shmmax": "6442450944"
+          },
+          ...
+          "r3.8xlarge": {
+              "sga": "149914",
+              "shmall": "51170509",
+              "shmmax": "196494753792"
+          },
+          ...</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_backup_options">Backup Options</h3>
+<div class="paragraph">
+<p>The Amazon S3 service provides an easy way to handle Oracle Database backups. AWS provides large network bandwidth from the EC2 instances deployed by the Quick Start to the S3 buckets.</p>
+</div>
+<div class="paragraph">
+<p>Oracle also provides a product called <a href="http://www.oracle.com/technetwork/database/features/availability/twp-oracledbcloudbackup-130129.pdf">Oracle Secure Backup (OSB) Cloud Module</a>. This product is not included in Oracle Enterprise Edition and requires a separate license with Oracle. This Quick Start gives you the option to install the OSB Cloud Module. You can use the parameters in the Oracle Secure Backup Cloud Module section of the template to configure the settings for this module, including the name of the S3 bucket for storing your Oracle Database backups, your Oracle Technology Network (OTN) account and password, and an access key and secret key for accessing the bucket. See <a href="#_launch_the_quick_start">Launch the Quick Start</a> in the deployment steps for details. To register for an OTN account, see the <a href="https://docs.oracle.com/database/121/RCMRF/web_services.htm#RCMRF90493">Oracle documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For more information about Oracle Database backup options after deployment, see the <a href="#_backing_up_your_data">Backing Up Your Data</a> section later in this guide.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_steps">Deployment steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_sign_in_to_your_aws_account">Sign in to your AWS account</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a> earlier in this guide.</p>
+</li>
+<li>
+<p>Make sure that your AWS account is configured correctly, as discussed in the <a href="#_technical_requirements">Technical requirements</a> section.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using this Quick Start. For full details, see the pricing pages for each AWS service used by this Quick Start. Prices are subject to change.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_deployment_options">deployment options</a> earlier in this guide.</p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Oracle Database into a new VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><div class="content"><div class="paragraph">
+<p><a href="=https://raw.githubusercontent.com/aws-quickstart/../../templates/oracle-database-master.template.yaml" target="_blank" rel="noopener">View template</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Oracle Database into an existing VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><div class="content"><div class="paragraph">
+<p><a href="=../../templates/oracle-database.template.yaml" target="_blank" rel="noopener">View template</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you’re deploying Oracle Database into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances, and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables, to allow the instances to download packages and software without exposing them to the internet.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Also, make sure that the domain name option in the DHCP options is configured as explained in the <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">Amazon VPC documentation</a>. You provide your VPC settings when you launch the Quick Start.</p>
+</div>
+<div class="paragraph">
+<p>Each deployment takes about 1 hour to complete.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for Oracle Database will be built. The template is launched in the us-west-2 Region by default.</p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the following tables, parameters are listed by category and described separately for the deployment options. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
+Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Network Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPC ID
+(<code>VPCID</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID of the VPC (e.g., vpc-0343606e)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet ID 1
+(<code>PrivateSubnet1ID</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID of the private subnet 1 in Availability Zone 1 (e.g., subnet-a0246dcd)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet ID 2
+(<code>PrivateSubnet2ID</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID of the private subnet 2 in Availability Zone 2 (e.g., subnet-b58c3d67)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion Security Group ID
+(<code>BastionSecurityGroupID</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID of the Bastion Security Group (e.g., sg-7f16e910)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Amazon EC2 Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair Name
+(<code>KeyPairName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of an existing EC2 KeyPair to enable SSH access to the instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Operating System
+(<code>OracleAMIOS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Red-Hat-Enterprise-Linux-7.2-HVM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operating system and version for database nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Instance Type
+(<code>OracleInstanceType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>r3.2xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose your Oracle Database instance type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary Database Private IP
+(<code>PrimaryIPAddress</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This must be a valid IP address for private subnet 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standby Database Private IP
+(<code>StandbyIPAddress</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This must be a valid IP address for private subnet 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable CloudWatch Logs
+(<code>EnableCWL</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enable pushing instance logs to CloudWatch Logs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Oracle Database Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oracle Version
+(<code>OracleVersion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>12.2.0.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version of Oracle Database Software.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Name
+(<code>DomainName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataguard-env</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of Domain to reach your Database Endpoint after setup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Port Number
+(<code>DatabasePort</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1525</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oracle Database listener port number.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary Database Name
+(<code>DatabaseName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>orcl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Database Name, Min 3, Maximum of 8 characters (limited by DB_NAME). Primary instance will have the same name of this.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Guard Configuration
+(<code>DataGuardConfig</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Data Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration: Single - One instance only,  Data Guard - Two instances (Primary + Standby)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character Set
+(<code>CharacterSet</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AL32UTF8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character set for Oracle Database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standby Database Name
+(<code>StandbyName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>orclsb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Standby instance name, Min 3, Maximum of 12 characters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Password
+(<code>DatabasePass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Database Password, Min 3, maximum of 30 characters. This password is used for the SYS, SYSTEM, and DBSNMP users of Oracle Database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASM Password
+(<code>AsmPass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your ASM Password, Min 3, maximum of 30 characters. This password is used for the SYSASM, ASM Monitor, and ASM EM admin users of Oracle ASM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Diskgroup GiB/Disk
+(<code>EBSData</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter the number of Gigabytes for Each ASM Disk (EBS) for DATA Diskgroup total of 6 (six) volumes, maximum of 16000 GiB each.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Diskgroup Volume Type
+(<code>DataVolumeType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk type for EBS Data Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data - IOPS per EBS Volume
+(<code>DataIOPS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>600</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IOPS per EBS Volume, only for io1 types. DATA diskgroup total IOPS will be this value x 6. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recovery (Reco) Diskgroup GiB/Disk
+(<code>EBSReco</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter the number of Gigabytes for Each ASM Disk (EBS) for RECO Diskgroup total of 3 (three) volumes, maximum of 16000 GiB each.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reco Diskgroup Volume Type
+(<code>RecoVolumeType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk type for EBS Reco Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reco - IOPS per EBS Volume
+(<code>RecoIOPS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IOPS per EBS Volume, only for io1 types. RECO diskgroup total IOPS will be this value x 3. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries Bucket Name
+(<code>InstallBucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 bucket with your Oracle Binaries (e.g., bucket-name)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries Bucket Key Prefix
+(<code>InstallBucketPrefix</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oracle/database/12</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 prefix with your Oracle Binaries (e.g., key/prefix)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Oracle Secure Backup Cloud Module (Optional)</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install Oracle Secure Backup
+(<code>OSBInstall</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install (true) or don&#8217;t install (false) optional Oracle Secure Backup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTN Account Email/Login
+(<code>OSBOTN</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your OTN (Oracle Technology Network) account login.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTN Account Password
+(<code>OSBPass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password of your OTN (Oracle Technology Network) account.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 Bucket for Backups
+(<code>OSBBucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 bucket to store your Oracle backups.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Access Key ID
+(<code>OSBKey</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Access Key to access your backup bucket, something like AKIAIV3KL4XXIT7DXXYY.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Secret Access Key
+(<code>OSBSecret</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Secret Key to access your backup bucket, something like c/ZeLyzixxx3HfxPVLX9IOKMXEdSbqks3Acz7QHj.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. AWS Quick Start Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+(<code>QSS3BucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+(<code>QSS3BucketRegion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
+(<code>QSS3KeyPrefix</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-oracle-database/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Network Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
+(<code>AvailabilityZones</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved and only 2 AZs are used for this deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPC CIDR
+(<code>VPCCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet 1 CIDR
+(<code>PrivateSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet 2 CIDR
+(<code>PrivateSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 2 located in Availability Zone 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 1 CIDR
+(<code>PublicSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 2 CIDR
+(<code>PublicSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allowed Bastion External Access CIDR
+(<code>RemoteAccessCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allowed CIDR block for external SSH access to the bastions</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Amazon EC2 Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair Name
+(<code>KeyPairName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pairs allow you to securely connect to your instance after it launches</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Operating System
+(<code>OracleAMIOS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Red-Hat-Enterprise-Linux-7.2-HVM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operating system and version for master/worker nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Instance Type
+(<code>OracleInstanceType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>r3.2xlarge</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose your Oracle Database instance type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary Database Private IP
+(<code>PrimaryIPAddress</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This must be a valid IP address for private subnet 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standby Database Private IP
+(<code>StandbyIPAddress</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This must be a valid IP address for private subnet 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable CloudWatch Logs
+(<code>EnableCWL</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enable pushing instance logs to CloudWatch Logs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Oracle Database Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oracle Version
+(<code>OracleVersion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>12.2.0.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version of Oracle Database Software.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Name
+(<code>DomainName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataguard-env</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of Domain to reach your Database Endpoint after setup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Port Number
+(<code>DatabasePort</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1525</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oracle Database listener port number.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary Database Name
+(<code>DatabaseName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>orcl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Database Name, Min 3, Maximum of 8 characters (limited by DB_NAME). Primary instance will have the same name of this.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Guard Configuration
+(<code>DataGuardConfig</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Data Guard</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration: Single - One instance only,  Data Guard - Two instances (Primary + Standby)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character Set
+(<code>CharacterSet</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AL32UTF8</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character set for Oracle Database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standby Database Name
+(<code>StandbyName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>orclsb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Standby instance name, Min 3, Maximum of 12 characters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database Password
+(<code>DatabasePass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your Database Password, Min 3, maximum of 30 characters. This password is used for the SYS, SYSTEM, and DBSNMP users of Oracle Database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASM Password
+(<code>AsmPass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter your ASM Password, Min 3, maximum of 30 characters. This password is used for the SYSASM, ASM Monitor, and ASM EM admin users of Oracle ASM.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Diskgroup GiB/Disk
+(<code>EBSData</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter the number of Gigabytes for Each ASM Disk (EBS) for DATA Diskgroup total of 6 (six) volumes, maximum of 16000 GiB each.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Diskgroup Volume Type
+(<code>DataVolumeType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk type for EBS Data Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data - IOPS per EBS Volume
+(<code>DataIOPS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>600</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IOPS per EBS Volume, only for io1 types. DATA diskgroup total IOPS will be this value x 6. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recovery (Reco) Diskgroup GiB/Disk
+(<code>EBSReco</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter the number of Gigabytes for Each ASM Disk (EBS) for RECO Diskgroup total of 3 (three) volumes, maximum of 16000 GiB each.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reco Diskgroup Volume Type
+(<code>RecoVolumeType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk type for EBS Reco Diskgroup. gp2 (performance ratio of 3 IOPS: 1 GiB) or io1 (performance ratio up to 50 IOPS : 1 GiB).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reco - IOPS per EBS Volume
+(<code>RecoIOPS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IOPS per EBS Volume, only for io1 types. RECO diskgroup total IOPS will be this value x 3. Maximum of 20000 IOPS per volume. Limited to 50 IOPS : 1 GiB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries Bucket Name
+(<code>InstallBucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 bucket with your Oracle Binaries (e.g., bucket-name)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binaries Bucket Key Prefix
+(<code>InstallBucketPrefix</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oracle/database/12</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 prefix with your Oracle Binaries (e.g., key/prefix)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. Oracle Secure Backup Cloud Module (Optional)</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install Oracle Secure Backup
+(<code>OSBInstall</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install (true) or don&#8217;t install (false) optional Oracle Secure Backup.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTN Account Email/Login
+(<code>OSBOTN</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your OTN (Oracle Technology Network) account login.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OTN Account Password
+(<code>OSBPass</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password of your OTN (Oracle Technology Network) account.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 Bucket for Backups
+(<code>OSBBucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your S3 bucket to store your Oracle backups.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Access Key ID
+(<code>OSBKey</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Access Key to access your backup bucket, something like AKIAIV3KL4XXIT7DXXYY.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Secret Access Key
+(<code>OSBSecret</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Secret Key to access your backup bucket, something like c/ZeLyzixxx3HfxPVLX9IOKMXEdSbqks3Acz7QHj.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. Linux Bastion Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion AMI Operating System
+(<code>BastionAMIOS</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Amazon-Linux2-HVM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Linux distribution for the AMI to be used for the bastion instances</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion Instance Type
+(<code>BastionInstanceType</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>t2.micro</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon EC2 instance type for the second bastion instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable Banner
+(<code>EnableBanner</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To include a banner to be displayed when connecting via SSH to the bastion, set this parameter to true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion Banner
+(<code>BastionBanner</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://aws-quickstart.s3.amazonaws.com/quickstart-oracle-database/submodules/quickstart-linux-bastion/scripts/banner_message.txt" class="bare">https://aws-quickstart.s3.amazonaws.com/quickstart-oracle-database/submodules/quickstart-linux-bastion/scripts/banner_message.txt</a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Banner text to display upon login</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. AWS Quick Start Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+(<code>QSS3BucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+(<code>QSS3BucketRegion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
+(<code>QSS3KeyPrefix</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-oracle-database/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>On the options page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re done, choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
+</li>
+<li>
+<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
+</li>
+<li>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Oracle Database deployment is ready.</p>
+</li>
+<li>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Figure 6</a>, to view the created resources.</p>
+</li>
+</ol>
+</div>
+<div id="cfn_outputs" class="imageblock">
+<div class="content">
+<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439"></a>
+</div>
+<div class="title">Figure 6. Oracle Database outputs after successful deployment</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_post_deployment_steps">Post deployment steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_files_and_directories">Files and Directories</h3>
+<div class="paragraph">
+<p>Installation files are downloaded from your S3 bucket to the <code>/u01/install</code> directory. Logs and some temporary configuration files are created in <code>/tmp</code>. Files exchanged between the primary database instance and the standby database instance are placed in an NFS /shared file system. Oracle home directories are in:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/u01/app/oracle/product/12c/db_1</code> for Oracle Database</p>
+</li>
+<li>
+<p><code>/u01/app/oracle/product/12c/grid</code> for Oracle Grid Infrastructure</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_access_your_oracle_database_instance">Access Your Oracle Database Instance</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Access the bastion host (created by the Quick Start template for a new VPC) or launch an EC2 instance in the public subnet, and optionally associate it with the Access Database security group (if you want access to the Oracle listener or Enterprise Manager ports). You can use SSH Agent Forwarding if the same public keys are in use.</p>
+</li>
+<li>
+<p>From this machine, you can access the instances with SSH (port 22) or the database in the port you defined. You can use the user name “oracle” or “ec2-user” with the PEM key you defined (SSH Agent Forwarding for the private key and <code>orcl.dataguard-env/10.0.0.5</code> as the example host/address for the Oracle database hosts in the example).</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ssh –A oracle@orcl.dataguard-env</pre>
+</div>
+</div>
+<div id="access_oracle_db_instance_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/access_oracle_db_instance_1.png"><img src="images/access_oracle_db_instance_1.png" alt="access_oracle_db_instance_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 7. Access Oracle Instance</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ssh –A oracle@10.0.0.5</pre>
+</div>
+</div>
+<div id="access_oracle_db_instance_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/access_oracle_db_instance_2.png"><img src="images/access_oracle_db_instance_2.png" alt="access_oracle_db_instance_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 8. Access Oracle Instance</div>
+</div>
+<div class="paragraph">
+<p>If you have an X terminal such as <a href="http://mobaxterm.mobatek.net/">MobaXterm</a>, you can start Java utilities like DBCA and NETCA to manage your EC2 Oracle instance. Database instances are already configured with X11 Linux graphic packages.</p>
+</div>
+<div id="access_oracle_db_instance_3" class="imageblock">
+<div class="content">
+<a class="image" href="images/access_oracle_db_instance_3.png"><img src="images/access_oracle_db_instance_3.png" alt="access_oracle_db_instance_3" width="648" height="439"></a>
+</div>
+<div class="title">Figure 9. Access Oracle Instance</div>
+</div>
+<div class="paragraph">
+<p>You can also access port 5500 via a browser by using <code>system</code> or <code>sys users</code> with the password you set, with <code><a href="https://ip:5500/em/login" class="bare">https://ip:5500/em/login</a></code> (for example, <code><a href="https://172.31.3.20:5500/em/login" class="bare">https://172.31.3.20:5500/em/login</a></code>).</p>
+</div>
+<div id="access_oracle_db_instance_4" class="imageblock">
+<div class="content">
+<a class="image" href="images/access_oracle_db_instance_4.png"><img src="images/access_oracle_db_instance_4.png" alt="access_oracle_db_instance_4" width="648" height="439"></a>
+</div>
+<div class="title">Figure 10. Access Oracle Instance</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_your_environment">Check Your Environment</h3>
+<div class="paragraph">
+<p>To check whether the standby database has been set up and the logs are in sync, log in to the primary database and force a log switch. This creates an archived log that is shipped to the standby database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># ssh –A oracle@orcl.dataguard-env
+# sqlplus / as sysdba
+set pages 1000 line 150
+alter system switch logfile;
+ALTER SESSION SET nls_date_format='DD-MON-YYYY HH24:MI:SS';
+SELECT sequence#, first_time, next_time, applied FROM   v$archived</pre>
+</div>
+</div>
+<div id="check_environment_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/check_environment_1.png"><img src="images/check_environment_1.png" alt="check_environment_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 11. Check Your Environment</div>
+</div>
+<div class="paragraph">
+<p>Then log in to the standby machine to see the applied logs generated.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># ssh –A oracle@orcl.dataguard-env
+# sqlplus / as sysdba
+set pages 1000 line 150
+ALTER SESSION SET nls_date_format='DD-MON-YYYY HH24:MI:SS';
+SELECT sequence#, first_time, next_time, applied FROM   v$archived_log ORDER BY sequence#;</pre>
+</div>
+</div>
+<div id="check_environment_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/check_environment_2.png"><img src="images/check_environment_2.png" alt="check_environment_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 12. Check Your Environment</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_best_practices_for_using_oracle_database_on_aws">Best practices for using Oracle Database on AWS</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_working_with_oracle_data_guard">Working with Oracle Data Guard</h3>
+<div class="paragraph">
+<p>After completing the deployment, you can change Oracle Data Guard configurations and also perform a switchover.</p>
+</div>
+<div class="sect3">
+<h4 id="_viewing_your_configuration">Viewing Your Configuration</h4>
+<div class="paragraph">
+<p>You can use the Oracle command-line interface (DGMGRL) to administer your Data Guard solution. To view your configuration, log into DGMGRL and use the <code>SHOW CONFIGURATION</code> command. See if the protection mode is <code>MaxPerformance</code>, which means that it has asynchronous replication in place. In this example, the primary instance is <code>orcl</code> and the standby instance is <code>orclsb</code>.</p>
+</div>
+<div id="view_config_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/view_config_1.png"><img src="images/view_config_1.png" alt="view_config_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 13. Viewing Your Configuration</div>
+</div>
+<div class="paragraph">
+<p>For a more detailed view, you can show the database replication configurations. In the following example, notice that LogXptMode='async'.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># dgmgrl sys/pass@instance
+show database verbose 'databasename';</pre>
+</div>
+</div>
+<div id="view_config_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/view_config_2.png"><img src="images/view_config_2.png" alt="view_config_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 14. Viewing Your Configuration</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_changing_your_configuration">Changing Your Configuration</h4>
+<div class="paragraph">
+<p>If you would like to change the protection mode from maximum performance (<code>MaxPerformance</code>) to maximum availability (<code>MaxAvailability</code>) for synchronous replication, you can change it with DGMGRL, and then monitor your performance. This will set up synchronous replication from the primary database (<code>orcl</code>) to the standby database (<code>orclsb</code>) with the lowest recovery point objective (RPO) in the event of primary database failure.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>edit database databasename set property 'LogXptMode'='sync';
+edit database standbydatabase set property 'LogXptMode'='sync';
+
+EDIT CONFIGURATION SET PROTECTION MODE AS MAXAVAILABILITY;</pre>
+</div>
+</div>
+<div id="change_config_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/change_config_1.png"><img src="images/change_config_1.png" alt="change_config_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 15. Changing Your Configuration</div>
+</div>
+<div class="paragraph">
+<p>For more information about performance modes, see the section <a href="#_ha_scenarios_with_oracle_data_guard_on_aws">HA Scenarios with Oracle Data Guard on AWS</a> previously in this guide.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_switching_to_the_standby_database">Switching to the Standby Database</h4>
+<div class="paragraph">
+<p>You can use the DGMGRL SWITCHOVER command to switch from the primary database (<code>orcl</code>) to the secondary database (<code>orclsb</code>).</p>
+</div>
+<div id="switching_to_standby_db_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/switching_to_standby_db_1.png"><img src="images/switching_to_standby_db_1.png" alt="switching_to_standby_db_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 16. Switching to the Standby Database</div>
+</div>
+<div class="paragraph">
+<p>If you have not logged in with the SYS password, you may receive the following error.</p>
+</div>
+<div id="switching_to_standby_db_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/switching_to_standby_db_2.png"><img src="images/switching_to_standby_db_2.png" alt="switching_to_standby_db_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 17. Switching to the Standby Database</div>
+</div>
+<div class="paragraph">
+<p>After the primary orcl instance is shut down and started back up, you may see the configuration switchover.</p>
+</div>
+<div id="switching_to_standby_db_3" class="imageblock">
+<div class="content">
+<a class="image" href="images/switching_to_standby_db_3.png"><img src="images/switching_to_standby_db_3.png" alt="switching_to_standby_db_3" width="648" height="439"></a>
+</div>
+<div class="title">Figure 18. Switching to the Standby Database</div>
+</div>
+<div class="paragraph">
+<p>If you are logged in with the SYS password, you may fail over without the need for manual shutdown and startup.
+You can also enable fast-start failover by following the instructions in the <a href="https://docs.oracle.com/cd/B28359_01/server.111/b28295/cli.htm#BABEIIHD">Oracle documentation</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_switching_your_dns_configuration">Switching Your DNS Configuration</h4>
+<div class="paragraph">
+<p>When you switch over to the standby database, you should also update your record set in the Amazon Route 53 private hosted zone to point to the standby database:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to the AWS Management Console and open the Amazon Route 53 console at <a href="https://console.aws.amazon.com/route53/" class="bare">https://console.aws.amazon.com/route53/</a>.</p>
+</li>
+<li>
+<p>Find your IP record inside your private hosted zone and change it to your standby (new primary) IP, so your application can continuously reach your primary database on the private hosted zone, and then save the record.</p>
+</li>
+</ol>
+</div>
+<div id="switch_dns_config_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/switch_dns_config_1.png"><img src="images/switch_dns_config_1.png" alt="switch_dns_config_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 19. Switching Your DNS Configuration</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you deploy systems on the AWS Cloud, security responsibilities are shared between you and AWS. AWS operates, manages, and controls the components from the host operating system and virtualization layer down to the physical security of the facilities in which the services operate. In turn, you assume responsibility and management of the guest operating system (including updates and security patches), other associated application software such as Oracle Database and Oracle Grid Infrastructure, as well as the configuration of the AWS-provided security group firewall. For more information about security on AWS, visit the <a href="https://aws.amazon.com/security/">AWS Security Center</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_network_security">Network Security</h3>
+<div class="paragraph">
+<p>The default network security setup of this solution follows AWS security best practices. The provisioned Oracle Database instances are deployed in private subnets and can only be accessed in three ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By connecting to the bastion host instance by using an SSH terminal.</p>
+</li>
+<li>
+<p>From AWS resources (such as EC2, RDS, or other instances) that you might have in the <code>OracleServerAccessSecurityGroup</code> security group, or that you might launch using the security group. You may include your application instance in this security group.</p>
+</li>
+<li>
+<p>By including new rules in <code>OracleServerSecurityGroup</code> to allow access to your database from a known IP block CIDR; for example, you might add an inbound rule to enable the VLAN 10.50.10.0/24 in your data center to connect through a VPN or AWS Direct Connect.</p>
+</li>
+</ul>
+</div>
+<div id="network_security_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/network_security_1.png"><img src="images/network_security_1.png" alt="network_security_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 20. Adding inbound rules to your security group</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_os_security">OS Security</h3>
+<div class="paragraph">
+<p>To gain root access to your instances you may use ec2-user or oracle user, and then sudo to root.</p>
+</div>
+<div class="paragraph">
+<p>You have to keep the Amazon EC2 PEM key you are using secure in your environment. Also, keep in mind that AWS doesn’t store your keys, so if you lose your key, you may not be able to access your instances.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_groups">Security Groups</h3>
+<div class="paragraph">
+<p>A security group acts as a firewall that controls the traffic for one or more instances. When you launch an instance, you associate one or more security groups with the instance. You add rules to each security group that allow traffic to or from its associated instances. You can modify the rules for a security group at any time. The new rules are automatically applied to all instances that are associated with the security group.</p>
+</div>
+<div class="paragraph">
+<p>This Quick Start creates three security groups: <code>OracleServerAccessSecurityGroup</code>, <code>OracleServerSecurityGroup</code>, and <code>OracleServersSecurityGroup</code>. After the Quick Start deployment, you are responsible for maintaining these security groups and including or excluding rules.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>OracleServerSecurityGroup</code> is used to grant the bastion hosts access to port 22 of the Oracle instances.</p>
+</li>
+<li>
+<p><code>OracleServersSecurityGroup</code> is used only for communications between database instances: primary and standby instances on database ports, SSH, and NFS ports.</p>
+</li>
+<li>
+<p><code>OracleServerAccessSecurityGroup</code> gives EC2 instances access to your database on the port you set up for database listeners, and on port 5500 for Oracle Enterprise Manager.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_useful_information">Other useful information</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_migrating_your_data_to_aws">Migrating Your Data to AWS</h3>
+<div class="paragraph">
+<p>AWS provides several services that you can use to migrate your data to your Oracle Database installation. These are described briefly in the following sections. For detailed information, see the whitepaper <a href="https://d0.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf">Strategies for Migrating Oracle Databases to AWS</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_aws_database_migration_service">AWS Database Migration Service</h4>
+<div class="paragraph">
+<p>AWS Database Migration Service (AWS DMS) helps you migrate your databases to AWS with virtually no downtime. All data changes to the source database that occur during the migration are continuously replicated to the target, allowing the source database to be fully operational during the migration process. After the database migration is complete, the target database remains synchronized with the source for as long as you choose, allowing you to switch the database over at a convenient time.</p>
+</div>
+<div class="paragraph">
+<p>AWS DMS makes it easy to load your tables from your local database to your database in AWS. You can migrate your Oracle Database with multiple parallel tasks, by using an internet link (VPN connection) or a dedicated 1-Gbps or 10-Gbps connection (AWS Direct Connect).</p>
+</div>
+<div class="paragraph">
+<p>For more information about AWS DMS, see the <a href="https://aws.amazon.com/dms/">AWS website</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_aws_snowball">AWS Snowball</h4>
+<div class="paragraph">
+<p>AWS Snowball, which is a feature of AWS Import/Export, addresses common challenges with large-scale data transfers, including high network costs, long transfer times, and security concerns. Transferring data with Snowball is simple, fast, secure, and can cost as little as one-fifth the cost of high-speed internet.</p>
+</div>
+<div class="paragraph">
+<p>With Snowball, you don’t need to write any code or purchase any hardware to transfer your data. Create a job in the AWS Management Console, and a Snowball appliance will be automatically shipped to you. Copy your data to the appliance (it will be encrypted), and then ship it back. The data will be loaded to Amazon S3 on AWS and made accessible from your instances.</p>
+</div>
+<div class="paragraph">
+<p>For more information about AWS Snowball, see the <a href="https://aws.amazon.com/importexport/">AWS website</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_rman_backup_and_restore">Oracle RMAN Backup and Restore</h4>
+<div class="paragraph">
+<p>You can use the Oracle Recovery Manager (RMAN) to back up your data, send the backup files to AWS through AWS Snowball, or by using VPN or AWS Direct Connect, and restore your database on AWS.
+For more information about Oracle RMAN, see the <a href="https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmquick.htm#BRADV89346">Oracle documentation</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_data_pump">Oracle Data Pump</h4>
+<div class="paragraph">
+<p>You can use Oracle Data Pump to perform network export/import operations, or send your dump file to the Oracle machines or to Amazon S3 for import operation.
+For more information about Oracle Data Pump, see the <a href="https://docs.oracle.com/database/121/SUTIL/GUID-501A9908-BCC5-434C-8853-9A6096766B5A.htm">Oracle documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_backing_up_your_data">Backing Up Your Data</h3>
+<div class="paragraph">
+<p>After you deploy Oracle Database on AWS, you&#8217;ll want to perform and schedule your database backups. The following sections describe some of the backup options available to  you. If you have a production database, we recommend that you set up a backup strategy and implement it as quickly as possible.</p>
+</div>
+<div class="sect3">
+<h4 id="_oracle_secure_backup">Oracle Secure Backup</h4>
+<div class="paragraph">
+<p>If you chose to install the Oracle Secure Backup Cloud Module, the Quick Start performs an initial, complete backup of your database to the S3 bucket you specified in the Quick Start parameters.</p>
+</div>
+<div class="paragraph">
+<p>Amazon S3 is the perfect place to save your backups, because it is durable, highly available, and cost-effective, and it has a high throughput to your instances.</p>
+</div>
+<div class="paragraph">
+<p>After deploying the Quick Start, access your machine and view the Amazon S3 log to see the RMAN backup:</p>
+</div>
+<div id="osb_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/osb_1.png"><img src="images/osb_1.png" alt="osb_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 21. Oracle Secure Backup</div>
+</div>
+<div class="paragraph">
+<p>You can use the <strong>/tmp/rmanbackup.cmd</strong> script to perform new backups or to schedule backup tasks and customize the settings for your needs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rman cmdfile=/tmp/rmanbackup.cmd log=/tmp/rmanbackup.log</pre>
+</div>
+</div>
+<div id="osb_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/osb_2.png"><img src="images/osb_2.png" alt="osb_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 22. Oracle Secure Backup</div>
+</div>
+<div class="paragraph">
+<p>You can also schedule your backups by using Crontab or another scheduling tool.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_backups_to_disk_and_amazon_s3">Backups to Disk and Amazon S3</h4>
+<div class="paragraph">
+<p>You can perform backups to disk, create and attach a new Amazon EBS volume, create a new file system for local backup, and then copy the backup files by using the AWS CLI <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/cp.html"><code>cp</code></a> or <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html"><code>sync</code></a> command.</p>
+</div>
+<div class="paragraph">
+<p>To use <code>cp</code> for individual files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>aws s3 cp /localfilesystem/backuppiece.bkp s3://YOURBUCKET/KEY/DB/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use <code>cp</code> for a folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>aws s3 cp /localfilesystem/backupfolder/ s3://YOURBUCKET/KEY/BACKUP/ --recursive</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information about creating new EBS volumes and file systems, see the <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html">AWS documentation</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_amis_and_snapshots">AMIs and Snapshots</h4>
+<div class="paragraph">
+<p>You can use the AWS CLI to generate an Amazon Machine Image (AMI) based on the image of your running instance, and to take snapshots of EBS volumes.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+We recommend that you shut down your database instances before creating an AMI or taking EBS snapshots.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After you create an AMI, you can launch it as a new instance. AWS will assign it a new private IP address, unless you specify your own IP address. If you move your instance to another VPC or another AWS Region, AWS might change its IP address. If so, follow these steps to change the IP address after launching the instance:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Edit the following files to reflect the correct IP and host names:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/u01/app/oracle/product/12.1.0.2/grid/network/admin/listener.ora
+/u01/app/oracle/product/12.1.0.2/db_1/network/admin/tnsnames.ora
+/etc/hosts</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Run the following command to update the installation:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo su –
+cd /u01/app/oracle/product/12.1.0.2/grid/crs/install
+perl roothas.sh -deconfig -force
+cd /u01/app/oracle/product/12.1.0.2/grid
+./root.sh
+cd /u01/app/oracle/product/12.1.0.2/grid/bin
+./srvctl add asm
+./srvctl add listener
+./srvctl start asm</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>As an Oracle user with ASM environment variables loaded, connect to asmcmd and mount the DATA and RECO disk groups.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$. oraenv
++ASM
+asmcmd
+mount data
+mount reco</pre>
+</div>
+</div>
+<div id="amis_snapshots_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/amis_snapshots_1.png"><img src="images/amis_snapshots_1.png" alt="amis_snapshots_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 23. AMIs and Snapshots</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additional_resources">Additional Resources</h3>
+<div class="sect3">
+<h4 id="_aws_services">AWS Services</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>AWS CloudFormation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation:
+<a href="https://aws.amazon.com/documentation/cloudformation/" class="bare">https://aws.amazon.com/documentation/cloudformation/</a></p>
+</li>
+<li>
+<p>Helper scripts:
+<a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html" class="bare">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Amazon EBS</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User guide: <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html" class="bare">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html</a></p>
+</li>
+<li>
+<p>Volume types: <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html" class="bare">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html</a></p>
+</li>
+<li>
+<p>Optimized instances: <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html" class="bare">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>AWS Command Line Interface installation on Linux
+<a href="https://docs.aws.amazon.com/cli/latest/userguide/installing.html#install-with-pip" class="bare">https://docs.aws.amazon.com/cli/latest/userguide/installing.html#install-with-pip</a></p>
+</li>
+<li>
+<p>Amazon EC2 user guide for Linux
+<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/" class="bare">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/</a></p>
+</li>
+<li>
+<p>Amazon Route 53
+<a href="https://aws.amazon.com/documentation/route53/" class="bare">https://aws.amazon.com/documentation/route53/</a></p>
+</li>
+<li>
+<p>Amazon S3
+<a href="https://aws.amazon.com/documentation/s3/" class="bare">https://aws.amazon.com/documentation/s3/</a></p>
+</li>
+<li>
+<p>Amazon VPC
+<a href="https://aws.amazon.com/documentation/vpc/" class="bare">https://aws.amazon.com/documentation/vpc/</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_red_hat_enterprise_linux_documentation">Red Hat Enterprise Linux documentation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Swap space
+<a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/ch-swapspace.html" class="bare">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/ch-swapspace.html</a></p>
+</li>
+<li>
+<p>xorg-x11 drivers packages
+<a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.4_Technical_Notes/xorg-x11.html" class="bare">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/6.4_Technical_Notes/xorg-x11.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_database_documentation">Oracle Database documentation</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Oracle Database Installation Guide
+<a href="https://docs.oracle.com/database/121/LADBI/toc.htm" class="bare">https://docs.oracle.com/database/121/LADBI/toc.htm</a></p>
+</li>
+<li>
+<p>Oracle Grid Infrastructure Installation Guide
+<a href="https://docs.oracle.com/cd/E11882_01/install.112/e48194/app_nonint.htm#CWWIN417" class="bare">https://docs.oracle.com/cd/E11882_01/install.112/e48194/app_nonint.htm#CWWIN417</a></p>
+</li>
+<li>
+<p>Oracle Data Guard Command-Line Interface Reference
+<a href="https://docs.oracle.com/database/121/DGBKR/dgmgrl.htm#DGBKR585" class="bare">https://docs.oracle.com/database/121/DGBKR/dgmgrl.htm#DGBKR585</a></p>
+</li>
+<li>
+<p>Oracle Data Guard Concepts and Administration
+<a href="https://docs.oracle.com/database/121/SBYDB/concepts.htm#SBYDB00010" class="bare">https://docs.oracle.com/database/121/SBYDB/concepts.htm#SBYDB00010</a></p>
+</li>
+<li>
+<p>Oracle ASMLib documentation
+<a href="http://www.oracle.com/technetwork/topics/linux/asmlib/index-101839.html" class="bare">http://www.oracle.com/technetwork/topics/linux/asmlib/index-101839.html</a></p>
+</li>
+<li>
+<p>Oracle ASMLib downloads for RHEL 7
+<a href="http://www.oracle.com/technetwork/server-storage/linux/asmlib/rhel7-2773795.html" class="bare">http://www.oracle.com/technetwork/server-storage/linux/asmlib/rhel7-2773795.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_on_aws">Oracle on AWS</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Advanced Architectures for Oracle Database on Amazon EC2
+<a href="https://d0.awsstatic.com/enterprise-marketing/Oracle/AWSAdvancedArchitecturesforOracleDBonEC2.pdf" class="bare">https://d0.awsstatic.com/enterprise-marketing/Oracle/AWSAdvancedArchitecturesforOracleDBonEC2.pdf</a></p>
+</li>
+<li>
+<p>Best Practices for Running Oracle Database on AWS
+<a href="https://d0.awsstatic.com/whitepapers/best-practices-for-running-oracle-database-on-aws.pdf" class="bare">https://d0.awsstatic.com/whitepapers/best-practices-for-running-oracle-database-on-aws.pdf</a></p>
+</li>
+<li>
+<p>Strategies for Migrating Oracle Database to AWS
+<a href="https://d0.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf" class="bare">https://d0.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf</a></p>
+</li>
+<li>
+<p>RDBMS in the Cloud: Oracle Database on AWS
+<a href="https://d0.awsstatic.com/whitepapers/aws-rdbms-oracle.pdf" class="bare">https://d0.awsstatic.com/whitepapers/aws-rdbms-oracle.pdf</a></p>
+</li>
+<li>
+<p>Amazon RDS for Oracle Database
+<a href="https://aws.amazon.com/rds/oracle/" class="bare">https://aws.amazon.com/rds/oracle/</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_support_notes">Oracle support notes</h4>
+<div class="paragraph">
+<p>Access to the following documents requires an Oracle account.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OSB Cloud Module - FAQ (Doc ID 740226.1)
+<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=740226.1" class="bare">https://support.oracle.com/epmos/faces/DocumentDisplay?id=740226.1</a></p>
+</li>
+<li>
+<p>Requirements for Installing Oracle Database 12.1 on RHEL7 or OL7 64-bit (x86-64) (Doc ID 1961997.1)
+<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=1961997.1" class="bare">https://support.oracle.com/epmos/faces/DocumentDisplay?id=1961997.1</a></p>
+</li>
+<li>
+<p>Master Note of Linux OS Requirements for Database Server (Doc ID 851598.1)
+<a href="https://support.oracle.com/epmos/faces/DocumentDisplay?id=851598.1" class="bare">https://support.oracle.com/epmos/faces/DocumentDisplay?id=851598.1</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix_a">Appendix A</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_data_replication_between_aws_regions">Data Replication Between AWS Regions</h3>
+<div class="paragraph">
+<p>For the greatest fault tolerance and stability, you can set up a Data Guard copy of your primary database in another AWS Region. This is a common disaster recovery scenario.</p>
+</div>
+<div class="paragraph">
+<p>This copy must be replicated asynchronously, considering the latency caused by the distance between Regions. Asynchronous replication avoids performance impact in your primary database, which are probably connected to each to standby database through a VPN connection.</p>
+</div>
+<div class="paragraph">
+<p>For this scenario, you should also consider replicating your backup objects in an S3 bucket to make them available in more than one Region using cross-Region replication.</p>
+</div>
+<div id="appendix_a_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_a_1.png"><img src="images/appendix_a_1.png" alt="appendix_a_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 24. Data Replication Between AWS Regions</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix_b">Appendix B</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_adding_disks_to_asm_disk_groups">Adding Disks to ASM Disk Groups</h3>
+<div class="paragraph">
+<p>After deployment, you might need more space for data files or archived log files. To gain more space, you can add EBS volumes to your DATA and RECO disk groups.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new EBS volume in the Availability Zones in which you deployed your primary and standby instances.</p>
+</li>
+</ol>
+</div>
+<div id="appendix_b_1" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_b_1.png"><img src="images/appendix_b_1.png" alt="appendix_b_1" width="648" height="439"></a>
+</div>
+<div class="title">Figure 25. Adding Disks to ASM Disk Groups</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>Attach the new volumes to your instances. Take note of the last letter of the device name (for example, for /dev/sdl, the last letter is  l, and will appear in the OS as /dev/xvdl).</p>
+</li>
+</ol>
+</div>
+<div id="appendix_b_2" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_b_2.png"><img src="images/appendix_b_2.png" alt="appendix_b_2" width="648" height="439"></a>
+</div>
+<div class="title">Figure 26. Adding Disks to ASM Disk Groups</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>Log in to your instances and create a primary partition for the device:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo fdisk /dev/xvdl
+n    (new partition)
+p    (primary )
+&lt;enter&gt;   (default  1 )
+&lt;enter&gt;  (default xxx)
+w    (write partition)</pre>
+</div>
+</div>
+<div id="appendix_b_3" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_b_3.png"><img src="images/appendix_b_3.png" alt="appendix_b_3" width="648" height="439"></a>
+</div>
+<div class="title">Figure 27. Adding Disks to ASM Disk Groups</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>Make the partition available to ASM with a name; for example, DATA7. As an Oracle user, add the disk to the corresponding disk group:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo /etc/init.d/oracleasm createdisk DATA7 /dev/xvdl1</pre>
+</div>
+</div>
+<div id="appendix_b_4" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_b_4.png"><img src="images/appendix_b_4.png" alt="appendix_b_4" width="648" height="439"></a>
+</div>
+<div class="title">Figure 28. Adding Disks to ASM Disk Groups</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo su – oracle
+. oraenv
++ASM
+sqlplus / as sysasm
+alter diskgroup data add disk 'ORCL:DATA7';</pre>
+</div>
+</div>
+<div id="appendix_b_5" class="imageblock">
+<div class="content">
+<a class="image" href="images/appendix_b_5.png"><img src="images/appendix_b_5.png" alt="appendix_b_5" width="648" height="439"></a>
+</div>
+<div class="title">Figure 29. Adding Disks to ASM Disk Groups</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (look at the log files in <code>/var/log/cloud-init.log</code>, <code>/tmp/bootstrap.log</code>, and <code>/tmp/oracleexec.log</code>.)</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For additional information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a> on the AWS website.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a size limitation error when I deployed the AWS CloudFormation templates.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_send_us_feedback">Send us feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-oracle-database" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. If you’d like to submit code, please review the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start_reference_deployments">Quick Start reference deployments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the <a href="https://aws.amazon.com/quickstart/">AWS Quick Start home page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_github_repository">GitHub repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can visit our <a href="https://github.com/aws-quickstart/quickstart-oracle-database" target="_blank" rel="noopener">GitHub repository</a> to download
+the templates and scripts for this Quick Start, to post your comments,
+and to share your customizations with others.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>© 2020, Amazon Web Services Inc., or its affiliates, and AWS solutions architects. All rights reserved.</p>
+</div>
+<div class="sect3">
+<h4 id="_notices">Notices</h4>
+<div class="paragraph">
+<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
+</div>
+<div class="paragraph">
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-09-09 20:51:16 UTC
+</div>
+</div>
+</body>
+</html>

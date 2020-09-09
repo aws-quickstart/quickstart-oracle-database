@@ -1,1 +1,15 @@
-// placeholder
+
+:template_aws_cloudformation_stack:
+:template_aws_ec2_instance:
+:template_aws_ec2_networkinterface:
+:template_aws_ec2_securitygroup:
+:template_aws_iam_instanceprofile:
+:template_aws_iam_role:
+:template_aws_logs_loggroup:
+:template_aws_route53_hostedzone:
+:template_aws_route53_recordset:
+:template_cloudformation:
+:template_ec2:
+:template_iam:
+:template_logs:
+:template_route53:
