@@ -1,6 +1,6 @@
 
-=== Launch into an existing VPC
-include::oracle-database.template.adoc[]
-
 === Launch into a new VPC
 include::oracle-database-master.template.adoc[]
+
+=== Launch into an existing VPC
+include::oracle-database.template.adoc[]

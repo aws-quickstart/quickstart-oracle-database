@@ -27,9 +27,9 @@ NOTE: You are responsible for the cost of the AWS services used while running th
 
 [cols="60,40a"]
 |===
-^|http://qs_launch_link[Deploy {partner-product-name} into a new VPC on AWS^] 
+^|https://fwd.aws/yPvek[Deploy {partner-product-name} into a new VPC on AWS^] 
 ^|link:=https://raw.githubusercontent.com/aws-quickstart/../../templates/oracle-database-master.template.yaml[View template^]
-^|http://qs_launch_link[Deploy {partner-product-name} into an existing VPC on AWS^] 
+^|https://fwd.aws/vBgjN[Deploy {partner-product-name} into an existing VPC on AWS^] 
 ^|link:=../../templates/oracle-database.template.yaml[View template^]
 |===
 
