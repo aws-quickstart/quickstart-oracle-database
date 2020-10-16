@@ -4,7 +4,7 @@
 :doc-month: September
 :doc-year: 2020
 :partner-contributors:
-:quickstart-contributors: Ravi Madabhushanam and Tony Bulding, Amazon Web Services
+:quickstart-contributors: Hugo Rozestraten, Santiago Cardenas, Ravi Madabhushanam, and Tony Bulding, Amazon Web Services
 :deployment_time: 1 hour
 :default_deployment_region: us-west-2
 //:production_build:
